@@ -115,7 +115,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="FixedList.cpp" />
     <ClCompile Include="FixedListTester.cpp" />
   </ItemGroup>
   <ItemGroup>
