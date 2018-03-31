@@ -11,10 +11,8 @@ public:
 	FixedList()
 	{
 		std::cout << "made a FixedList class with type = " << typeid(T).name() << " and size = "<< maxCapacity << endl;
-		
 	}
 	
-	// No dynamic memory used here, so don't mind me
 	~FixedList() {}
 
 	//Access to elements stored in your FixedList 
@@ -29,16 +27,19 @@ public:
 	// Overload the [] operator just for funsies. This works the same as get(index) above
 	T& operator[](unsigned int index)
 	{
-		//int iter = thisList.begin();
-		//std::advance(iter, index);
-		//int x = *iter;
-		//return *iter;
+
 	}
-	//
+	
 	//PRE: Specify the element to search for in the FixedList
 	//POST: The index of the first occurence of that element returned, else -1
 	int getFirstIndex(const T& t) const {
-		return 1;
+		for (size_t i = 0; i < maxCapacity; i++) {
+			if (contents[i] == t) {
+				cout << "The value " << t << " first occured at index: " << i << endl;
+				return i;
+			}
+		}
+		return -1;
 	}
 	
 	//PRE: a FixedList object

@@ -29,6 +29,8 @@ int main() {
 	// test retrieval of values at specified indices
 	testList3.get(0);
 
+	testList3.getFirstIndex(1);
+
 
 	
 
