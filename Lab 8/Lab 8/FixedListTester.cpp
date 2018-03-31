@@ -3,18 +3,9 @@ using namespace std;
 
 int main() {
 
-	//test objects
-	FixedList<int, 5> testList{};
-	FixedList<> testList2{};
 	FixedList<int, 5> testList3;
 
-	//make sure passing template params works
-	//cout << testList.maxCapacity << endl;
-	//cout << testList2.maxCapacity << endl;
-
 	//check capacity method is correct
-	testList.capacity();
-	testList2.capacity();
 	testList3.capacity();
 
 	// check add()
@@ -41,12 +32,30 @@ int main() {
 	testList3.get(4);
 	testList3.get(5);
 	testList3.get(6);
+ 
+	cout << "value at index 6: " << testList3[6] << endl;;
+	cout << "value at index 2: " <<testList3[2] << endl;
 
+	cout << "Test with T = string" << "------------------------" <<endl;
+	FixedList<string, 5> testList4;
 
+	testList4.capacity();
 
+	testList4.add("Chris");
+	testList4.add("Albert");
+	testList4.add("D'arcy");
+
+	testList4.get(0);
+	testList4.get(4);
+
+	testList4.getFirstIndex("Chris");
+	testList4.size();
+
+	testList4.remove("Albert");
+	testList4.get(0);
+	testList4.get(1);
+	testList4.get(2);
 	
-
-
 	cin.get();
 }
 

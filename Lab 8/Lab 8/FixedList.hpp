@@ -1,6 +1,7 @@
 #pragma once
 #include <array>
 #include <iostream>
+#include <string>
 #include <typeinfo>
 
 template<class T = string, size_t N = 10>
@@ -24,9 +25,9 @@ public:
 		size_t ind = static_cast<size_t>(index);
 
 		//make sure they're requesting a valid index
-		if (ind <= maxCapacity) {
+		if (ind < maxCapacity) {
 			//make sure they're requesting an index that actually stores a value
-			if (ind <= counter) {
+			if (ind <= (counter - 1)) {
 				cout << "The element stored at index " << ind << " is " << contents[ind] << endl;
 				return contents[ind];
 			}
@@ -34,20 +35,28 @@ public:
 			else
 			{
 				cout << "Sorry, there's nothing stored at index " << ind << " yet." << endl;
-				return static_cast<T>(-1);
+				return contents[ind];
 			}
 		}
 		else
 		{
 			cout << "Sorry, you've requested access to an invalid index" << endl;
-			return static_cast<T>(-1);
+			return contents[ind];
 		}
 	}
 	
 	// Overload the [] operator just for funsies. This works the same as get(index) above
 	T& operator[](unsigned int index)
 	{
-
+		size_t i = static_cast<size_t>(index);
+		if (i <= maxCapacity) 
+		{
+			return contents[i];
+		}
+		else {
+			cout << "Index out of bounds. ";
+			return contents[-1];
+		}
 	}
 	
 	//PRE: Specify the element to search for in the FixedList
@@ -81,10 +90,10 @@ public:
 	//POST: True on success, else false
 	bool add(const T& t)
 	{
-		if (counter <= maxCapacity) {
+		if (counter < maxCapacity) {
 			contents[counter] = t;
 			cout << "Inserted value " << t << " at index " << counter << endl;
-			counter++;
+			++counter;
 			return true;
 		}
 		else
@@ -111,7 +120,7 @@ public:
 				else
 				{
 					cout << "Unable to remove element" << endl;
-					return static_cast<T>(-1);
+					return t;
 				}
 			}
 		}
