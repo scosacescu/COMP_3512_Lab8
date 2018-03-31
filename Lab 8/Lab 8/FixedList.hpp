@@ -46,8 +46,8 @@ public:
 	//POST: The actual number of elements in the FixedList's contents[]
 	size_t size()const
 	{
-		return 1;
-
+		cout << "There are " << counter << " elements stored in your FixedList" << endl;
+		return counter;
 	}
 
 	//PRE: a FixedList object
