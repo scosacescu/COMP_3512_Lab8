@@ -33,6 +33,16 @@ int main() {
 	testList3.getFirstIndex(1);
 	testList3.size();
 
+	testList3.remove(2);
+	testList3.get(0);
+	testList3.get(1);
+	testList3.get(2);
+	testList3.get(3);
+	testList3.get(4);
+	testList3.get(5);
+	testList3.get(6);
+
+
 
 	
 

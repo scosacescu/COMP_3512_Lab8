@@ -1,8 +1,7 @@
 #pragma once
-#include <iostream>
 #include <array>
+#include <iostream>
 #include <typeinfo>
-
 
 template<class T = string, size_t N = 10>
 class FixedList {
@@ -18,7 +17,8 @@ public:
 	//Access to elements stored in your FixedList 
 	//PRE: Specify the index of the element you want from your list
 	//POST: Element stored at that index will be returned, if valid
-	//Note: This will not allow access to indices to which the user has added elements, regardless of capacity
+	//Note: This will not allow access to indices to which the user has not yet 
+	//      added elements, regardless of total capacity
 	const T& get(unsigned int index) const
 	{
 		size_t ind = static_cast<size_t>(index);
@@ -37,13 +37,11 @@ public:
 				return static_cast<T>(-1);
 			}
 		}
-		else 
+		else
 		{
-			cout << "Sorry, you've requested access to an index larger than the size of your FixedList" << endl;
+			cout << "Sorry, you've requested access to an invalid index" << endl;
 			return static_cast<T>(-1);
 		}
-		
-
 	}
 	
 	// Overload the [] operator just for funsies. This works the same as get(index) above
@@ -55,10 +53,10 @@ public:
 	//PRE: Specify the element to search for in the FixedList
 	//POST: The index of the first occurence of that element returned, else -1
 	int getFirstIndex(const T& t) const {
-		for (int i = 0; i < maxCapacity; i++) {
+		for (size_t i = 0; i < maxCapacity; i++) {
 			if (contents[i] == t) {
 				cout << "The value " << t << " first occured at index: " << i << endl;
-				return i;
+				return static_cast<int>(i);
 			}
 		}
 		return -1;
@@ -83,7 +81,7 @@ public:
 	//POST: True on success, else false
 	bool add(const T& t)
 	{
-		if (counter <= static_cast<int>(maxCapacity)) {
+		if (counter <= maxCapacity) {
 			contents[counter] = t;
 			cout << "Inserted value " << t << " at index " << counter << endl;
 			counter++;
@@ -100,22 +98,34 @@ public:
 	//POST: If found, the element will be returned and all following elements will be shifted one left. 
 	T remove(const T& t)
 	{
-		for (size_t i = 0; i < 10; i++) {
+		//iterate through occupied indices until you find the first occurence of the element
+		for (size_t i = 0; i < counter; i++) {
 			if (contents[i] == t){
-				//remove
-				//shiftLeft(i);
-				break;
-			}
-			else {
-				return -1;
+				T removedElement = contents[i];
+				//check success of shifting before wrapping up
+				if (shiftLeft(i)) {
+					cout << "Element " << removedElement << " successfully removed from index " << i << endl;
+					//return the removed element.
+					return removedElement;
+				}
+				else
+				{
+					cout << "Unable to remove element" << endl;
+					return static_cast<T>(-1);
+				}
 			}
 		}
 	}
 
 	bool shiftLeft(size_t index) {
-
+		while (index < counter) {
+			contents[index] = contents[index + 1];
+			++index;
+		}
+		//decrement the counter to make sure we restrict access to our FixedList's contents
+		counter--;
+		return true;
 	}
-
 
 	static constexpr size_t maxCapacity = N; //assign the max capacity through template params
 	T contents[maxCapacity]; //this is the "fixed list" our FixedList class is built to manage
