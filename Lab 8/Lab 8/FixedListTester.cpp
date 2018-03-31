@@ -28,6 +28,7 @@ int main() {
 
 	// test retrieval of values at specified indices
 	testList3.get(0);
+	testList3.get(7);
 
 	testList3.getFirstIndex(1);
 	testList3.size();

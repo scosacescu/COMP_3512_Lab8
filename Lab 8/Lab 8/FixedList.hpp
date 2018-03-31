@@ -16,12 +16,34 @@ public:
 	~FixedList() {}
 
 	//Access to elements stored in your FixedList 
-	//PRE: Specify the index of the element you want in your list
+	//PRE: Specify the index of the element you want from your list
 	//POST: Element stored at that index will be returned, if valid
+	//Note: This will not allow access to indices to which the user has added elements, regardless of capacity
 	const T& get(unsigned int index) const
 	{
-		cout << "The element stored at index " << index << " is " << contents[index] << endl;
-		return contents[index];
+		size_t ind = static_cast<size_t>(index);
+
+		//make sure they're requesting a valid index
+		if (ind <= maxCapacity) {
+			//make sure they're requesting an index that actually stores a value
+			if (ind <= counter) {
+				cout << "The element stored at index " << ind << " is " << contents[ind] << endl;
+				return contents[ind];
+			}
+			//if this index is "empty", then don't get whatever's stored there
+			else
+			{
+				cout << "Sorry, there's nothing stored at index " << ind << " yet." << endl;
+				return static_cast<T>(-1);
+			}
+		}
+		else 
+		{
+			cout << "Sorry, you've requested access to an index larger than the size of your FixedList" << endl;
+			return static_cast<T>(-1);
+		}
+		
+
 	}
 	
 	// Overload the [] operator just for funsies. This works the same as get(index) above
@@ -33,7 +55,7 @@ public:
 	//PRE: Specify the element to search for in the FixedList
 	//POST: The index of the first occurence of that element returned, else -1
 	int getFirstIndex(const T& t) const {
-		for (size_t i = 0; i < maxCapacity; i++) {
+		for (int i = 0; i < maxCapacity; i++) {
 			if (contents[i] == t) {
 				cout << "The value " << t << " first occured at index: " << i << endl;
 				return i;
@@ -88,18 +110,17 @@ public:
 				return -1;
 			}
 		}
+	}
+
+	bool shiftLeft(size_t index) {
 
 	}
 
 
 	static constexpr size_t maxCapacity = N; //assign the max capacity through template params
 	T contents[maxCapacity]; //this is the "fixed list" our FixedList class is built to manage
-	int counter = 0;
+	size_t counter = 0;
 
 private:
-	
-	
-	
 
-	//void shiftLeft(T startIndex)
 };
