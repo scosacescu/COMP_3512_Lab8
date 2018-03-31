@@ -127,10 +127,8 @@ public:
 		return true;
 	}
 
+private:
 	static constexpr size_t maxCapacity = N; //assign the max capacity through template params
 	T contents[maxCapacity]; //this is the "fixed list" our FixedList class is built to manage
 	size_t counter = 0;
-
-private:
-
 };

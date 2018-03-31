@@ -9,8 +9,8 @@ int main() {
 	FixedList<int, 5> testList3;
 
 	//make sure passing template params works
-	cout << testList.maxCapacity << endl;
-	cout << testList2.maxCapacity << endl;
+	//cout << testList.maxCapacity << endl;
+	//cout << testList2.maxCapacity << endl;
 
 	//check capacity method is correct
 	testList.capacity();
